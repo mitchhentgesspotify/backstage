@@ -24,6 +24,7 @@ import { program } from 'commander';
 import { exitWithError } from './lib/errors';
 import { version } from '../../../package.json';
 import createApp from './createApp';
+import postInstall from './postInstall';
 
 const main = (argv: string[]) => {
   program
@@ -39,6 +40,8 @@ const main = (argv: string[]) => {
       'Skip the install and builds steps after creating the app',
     )
     .action(cmd => createApp(cmd));
+
+  program.command('post-install-dev').action(() => postInstall());
 
   program.parse(argv);
 };
