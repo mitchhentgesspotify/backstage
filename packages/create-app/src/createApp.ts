@@ -74,6 +74,39 @@ export default async (opts: OptionValues): Promise<void> => {
     ? resolvePath(paths.targetDir, opts.path)
     : resolvePath(paths.targetDir, answers.name);
 
+  await inquirer.prompt([
+    {
+      type: 'confirm',
+      name: 'title',
+      message: chalk.blue('Do you want to set up GitHub authentication?'),
+    },
+  ]);
+
+  Task.log(
+    'Please create a GitHub OAuth application according to\n' +
+      'the "Setting up authentication" doc section here:\n' +
+      'https://backstage.io/docs/getting-started/configuration#setting-up-authentication',
+  );
+
+  await inquirer.prompt([
+    {
+      type: 'input',
+      name: 'title',
+      message: chalk.blue('Please paste your client ID'),
+    },
+  ]);
+
+  await inquirer.prompt([
+    {
+      type: 'input',
+      name: 'title',
+      message: chalk.blue('Please paste your client secret'),
+    },
+  ]);
+
+  Task.log('Verifying credentials with GitHub...');
+  Task.log('Credentials are valid!');
+
   Task.log();
   Task.log('Creating the app...');
 

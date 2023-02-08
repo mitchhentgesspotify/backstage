@@ -4008,6 +4008,7 @@ __metadata:
     ora: ^5.3.0
     recursive-readdir: ^2.2.2
     ts-node: ^10.0.0
+    yaml: ^2.0.0
   bin:
     backstage-create-app: bin/backstage-create-app
   languageName: unknown

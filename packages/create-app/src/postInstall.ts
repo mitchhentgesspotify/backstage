@@ -46,9 +46,21 @@ export default async (): Promise<void> => {
     },
   ]);
 
+  // $ create-app ~/dev/backstage-mhentges
   const appDir = paths.targetDir;
   const title = answers.title;
 
-  Task.log();
+  const appConfig = yaml.parse(
+    await fs.readFile(path.join(appDir, 'app-config.yaml'), 'utf8'),
+  ) as any;
+  appConfig.app.title = title;
+  await fs.writeFile(
+    path.join(appDir, 'app-config.yaml'),
+    yaml.stringify(appConfig, {
+      indent: 2,
+    }),
+    'utf8',
+  );
+
   Task.log(`Title set to "${title}"`);
 };
