@@ -14,7 +14,12 @@
  * limitations under the License.
  */
 
-import { InfoCard, InfoCardVariants } from '@backstage/core-components';
+import {
+  InfoCard,
+  InfoCardVariants,
+  Progress,
+  ResponseErrorPanel,
+} from '@backstage/core-components';
 import { useEntity } from '@backstage/plugin-catalog-react';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -26,6 +31,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import React, { useEffect, useState } from 'react';
 import { ComponentsGrid } from './ComponentsGrid';
 import { EntityRelationAggregation } from '../types';
+import { useGetEntities } from './useGetEntities';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -95,6 +101,21 @@ export const OwnershipCard = (props: {
       setRelationAggregation(defaultRelationAggregation);
     }
   }, [setRelationAggregation, defaultRelationAggregation, relationAggregation]);
+
+  const { componentsWithCounters, loading, error } = useGetEntities(
+    entity,
+    relationAggregation!,
+    entityFilterKind,
+    entityLimit,
+  );
+
+  if (loading) {
+    return <Progress />;
+  } else if (error) {
+    return <ResponseErrorPanel error={error} />;
+  }
+
+  const count = componentsWithCounters?.reduce((a, b) => a + b.counter, 0);
 
   return (
     <InfoCard
