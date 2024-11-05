@@ -119,7 +119,7 @@ export const OwnershipCard = (props: {
 
   return (
     <InfoCard
-      title="Ownership"
+      title={`Ownership (${count})`}
       variant={variant}
       className={classes.card}
       cardClassName={classes.cardContent}
