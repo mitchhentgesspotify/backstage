@@ -115,11 +115,13 @@ export const OwnershipCard = (props: {
     return <ResponseErrorPanel error={error} />;
   }
 
+  // @ts-ignore
   const count = componentsWithCounters?.reduce((a, b) => a + b.counter, 0);
 
   return (
     <InfoCard
-      title={`Ownership (${count})`}
+      // title={`Ownership (${count})`}
+      title="Ownership"
       variant={variant}
       className={classes.card}
       cardClassName={classes.cardContent}
