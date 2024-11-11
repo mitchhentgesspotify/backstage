@@ -68,9 +68,7 @@ const Component: ProviderComponent = ({
 
     if (!identityResponse) {
       // eslint-disable-next-line no-alert
-      const useLegacyGuestTokenResponse = confirm(
-        'Failed to sign in as a guest using the auth backend. Do you want to fallback to the legacy guest token?',
-      );
+      const useLegacyGuestTokenResponse = true;
       if (useLegacyGuestTokenResponse) {
         setUseLegacyGuestToken(true);
         onSignInSuccess(new GuestUserIdentity());
@@ -122,9 +120,7 @@ const loader: ProviderLoader = async apis => {
     return undefined;
   } else if (identityResponse && useLegacyGuestToken) {
     // eslint-disable-next-line no-alert
-    const switchToNewGuestToken = confirm(
-      'You are currently using the legacy guest token, but you have the new guest backend module installed. Do you want to use the new module?',
-    );
+    const switchToNewGuestToken = true;
     if (switchToNewGuestToken) {
       localStorage.removeItem('enableLegacyGuestToken');
     } else {
